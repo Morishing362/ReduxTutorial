@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 
 import { useAppSelector, useAppDispatch } from '../../lib/hooks';
-import { decrement, increment, incrementByAmount } from './CounterSlice';
+import { decrement, increment, incrementByAmount } from './counter_slice';
 
 const useStyles = makeStyles((theme) => ({
 	buttonsParent: {
