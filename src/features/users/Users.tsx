@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, Button, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core';
 
 import { useAppSelector, useAppDispatch } from '../../lib/hooks';
-import User, { insert } from './users_slice';
+import { fetchAllUsers, insertUser } from './users_async_thunk';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +21,10 @@ export function Users() {
 
     const classes = useStyles();
 
+    React.useEffect(() => {
+        dispatch(fetchAllUsers());
+    }, []);
+
     return (
         <div>
             <div>
@@ -28,7 +32,7 @@ export function Users() {
                 <input type="number" value={age} onChange={(e) => setAge(Number(e.target.value))} />
             </div>
             <div className={classes.buttonsParent}>
-                <Button color="primary" onClick={() => dispatch(insert({ id: undefined, name: name, age: age }))}> Insert </Button>
+                <Button color="primary" onClick={() => dispatch(insertUser({ id: undefined, name: name, age: age }))}> Insert </Button>
             </div>
             <Table>
                 <TableHead>
@@ -40,8 +44,8 @@ export function Users() {
                 </TableHead>
                 <TableBody>
                     {users.map((user) => (
-                        <TableRow>
-                             <TableCell>{user.id}</TableCell>
+                        <TableRow >
+                            <TableCell>{user.id}</TableCell>
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.age}</TableCell>
                         </TableRow>

@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../lib/store';
 
 // Define a type for the slice state
 interface CounterState {
@@ -12,7 +10,7 @@ const initialState: CounterState = {
 	value: 0
 }
 
-export const counterSlice = createSlice({
+const counterSlice = createSlice({
 	name: 'counter',
 	// `createSlice` will infer the state type from the `initialState` argument
 	initialState,

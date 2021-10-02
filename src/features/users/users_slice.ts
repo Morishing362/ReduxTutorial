@@ -1,12 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../lib/store';
-
-interface User {
-    id?: number,
-    name: String,
-    age?: number,
-}
+import { createSlice } from '@reduxjs/toolkit';
+import { User } from '../../lib/entities';
+import { fetchAllUsers, insertUser } from './users_async_thunk';
 
 interface UsersState {
     users: Array<User>,
@@ -16,22 +10,22 @@ const initialState: UsersState = {
     users: []
 }
 
-export const usersSlice = createSlice({
+const usersSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {
-        insert: (state, action: PayloadAction<User>) => {
-            let user = action.payload;
-            let lastUser = {
-                id: 9999,
-                name: user.name,
-                age: user.age,
-            }
-            state.users.push(lastUser);
-        }
-    }
-});
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.users = action.payload;
+        });
 
-export const { insert } = usersSlice.actions;
+        builder.addCase(insertUser.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.users.push(action.payload);
+        });
+    }
+
+});
 
 export default usersSlice.reducer;
