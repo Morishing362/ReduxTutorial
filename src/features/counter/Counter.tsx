@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 
-import { useAppSelector, useAppDispatch } from '../../lib/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { decrement, increment, incrementByAmount } from './counter_slice';
 
 const useStyles = makeStyles((theme) => ({
 	buttonsParent: {
-		display: 'flex'
+		display: 'flex',
+		alignItems: 'center'
 	},
+	button: {
+		margin: 20,
+	}
 }))
 
 export function Counter() {
@@ -23,11 +27,11 @@ export function Counter() {
 	return (
 		<div>
 			<div className={classes.buttonsParent}>
-				<Button color="primary" onClick={() => dispatch(increment())}>Increment</Button>
-				<Button color="primary" onClick={() => dispatch(decrement())}>Decrement</Button>
+				<Button className={classes.button} color="primary" variant="contained" onClick={() => dispatch(increment())}>Increment</Button>
+				<Button className={classes.button} color="primary" variant="contained" onClick={() => dispatch(decrement())}>Decrement</Button>
 			</div>
 			<div className={classes.buttonsParent}>
-				<Button color="primary" onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Increment by</Button>
+				<Button className={classes.button} color="primary" variant="contained" onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Increment by</Button>
 				<input type="text" value={incrementAmount} onChange={(e) => setIncrementAmount(e.target.value)} />
 			</div>
 			<div>
